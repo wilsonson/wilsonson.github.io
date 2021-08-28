@@ -1,0 +1,483 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Performance Test - Wilsonson Blog</title>
+<meta name="description" content="Most developers should have the experience to be asked by the senior or other business stakeholders for conducting load tests. The so-called load test is all about performance, and it’s aimed to find out all the limitations/bottlenecks of an application.  When we assess the performance of an application, there’re a few metrics we will think about, and, of course, CPU utilization is always the first metric we will put our eyes on. But other than CPU utilization, there’re a few metrics we should consider. Here’s the list of common metrics, which I will check on it.">
+
+
+  <meta name="author" content="Wilson Yeung">
+  
+  <meta property="article:author" content="Wilson Yeung">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Wilsonson Blog">
+<meta property="og:title" content="Performance Test">
+<meta property="og:url" content="/blog/performance-test/">
+
+
+  <meta property="og:description" content="Most developers should have the experience to be asked by the senior or other business stakeholders for conducting load tests. The so-called load test is all about performance, and it’s aimed to find out all the limitations/bottlenecks of an application.  When we assess the performance of an application, there’re a few metrics we will think about, and, of course, CPU utilization is always the first metric we will put our eyes on. But other than CPU utilization, there’re a few metrics we should consider. Here’s the list of common metrics, which I will check on it.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-29T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/blog/performance-test/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Wilsonson",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Wilsonson Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Wilsonson Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Wilson Yeung</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>A geek.<br /> And a scrum master.<br />  Passionate in new technologies and problem-solving.<br /></p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Hong Kong</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Performance Test">
+    <meta itemprop="description" content="Most developers should have the experience to be asked by the senior or other business stakeholders for conducting load tests. The so-called load test is all about performance, and it’s aimed to find out all the limitations/bottlenecks of an application. When we assess the performance of an application, there’re a few metrics we will think about, and, of course, CPU utilization is always the first metric we will put our eyes on. But other than CPU utilization, there’re a few metrics we should consider. Here’s the list of common metrics, which I will check on it.">
+    <meta itemprop="datePublished" content="2021-08-29T00:00:00+08:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Performance Test
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Most developers should have the experience to be asked by the senior or other business stakeholders for conducting load tests. The so-called load test is all about performance, and it’s aimed to find out all the limitations/bottlenecks of an application. 
+When we assess the performance of an application, there’re a few metrics we will think about, and, of course, CPU utilization is always the first metric we will put our eyes on. But other than CPU utilization, there’re a few metrics we should consider. Here’s the list of common metrics, which I will check on it.</p>
+
+<h1 id="cpu-utilization">CPU Utilization</h1>
+<p>CPU utilization is the most straightforward one. When you think an application has a performance issue, you should check on CPU usage. And if the overall CPU utilization is high, you may need to check the application to find out the code consuming computation power. Besides, you may also check how many CPU cores are using by the application. Usually, a high-loading application should spread the loading over all available CPU cores. If the application relies on a single CPU core, you may consider rewriting the code to distribute the loading with multiple threads or await / async approach.</p>
+
+<h1 id="memory-utilization">Memory Utilization</h1>
+<p>I think no application is intentionally designed to run out of memory. So an application should have a way to recycle the memory and keeping it in a good state. Otherwise, it will drain too much memory, making other applications run abnormally, or the OS will handle the issue, by simply killing the overloaded application, to protect the system. 
+When an application starts running, it will consume memory quickly until all required data has been loaded. Generally speaking, an application should consume and release memory under normal/expected usage. If your application consumes more and more memory over time, you may need to find out why it’s not releasing the memory, such as memory leakage, not necessary cache…etc. For remedial, you may need to regularly restart your application, or even OS if even worse.</p>
+
+<h1 id="disk-throughput">Disk Throughput</h1>
+<p>When an application needs to read or write files frequently, it may hit the performance bottleneck because of OS, file system, or hardware. Generally, if an application reads or writes files on a disk, it’s relying on the OS to communicate with the disk to do I/O operations. So if there’s an issue with OS’s driver, it may cause some trouble. When an application needs to read/write multiple small files, the file system (e.g. FAT32, NTFS, ext4) may also be a factor that will impact the performance. 
+And, of course, the technology of the hardware disk is also a significant factor. The performance of SSD is much better than the traditional mechanical disk, despite cost &amp; disk size. Besides the disk technology, sometimes we will use RAID, i.e. combine multiple disks, to boost the performance.</p>
+
+<p>Disk throughput is a limitation that you can’t avoid if your application needs to read/write heavily. However, you can still consider a few things to avoid the issue, like creating the data cache on memory, putting the data into a database server.</p>
+
+<h1 id="network-throughput">Network Throughput</h1>
+<p>Generally speaking, a network is composed of multiple elements, like NIC, Hub / Switch, cable ..etc. ( I don’t want to go deep into 7-layers design, but I always think a good developer should know the network ). So if your application hits a network throughput issue, you should consider the machine that runs your application and think about the whole network, including the application/machines on the same network, the elements in between, and, of course, the outbound bandwidth. And despite bandwidth, you need to check whether any network element is dropping the packets because of too much traffic or simply faulty hardware. Besides, if your application uses UDP, you may take extra care because UDP has less control over the packet transmission. And if your application is using VPN, please need to consider if MTU is causing you trouble.</p>
+
+<h1 id="number-of-socket--port">Number of Socket / Port</h1>
+<p>This one is a rare issue, but it happens, especially when your application is calling web API intensively. Theoretically, there are 65535 ports for an IP address, but the OS or some system applications has already reserved or used some ports. The actual number of ports that your application can use is limited, around 20K – 30K. When your application makes an HTTP API call to the external, the application will get a port from the OS to create a connection. After the API call is done, the application closes the connection by closing the port. However, the closing procedure is not a sharply cut operation under the TCP. It will put the port into the state of “TIME_WAIT” and wait for timeout, generally 2 minutes. (You may check the TCP state diagram <a href="https://en.wikipedia.org/wiki/File:Tcp_state_diagram_fixed.svg">here</a> .) And then, when the application makes another API call and doesn’t reuse the same port obtained before, the OS needs to provide another port. So you can see the problem here: If your application consuming ports faster than the OS can release it, the application will run out of ports eventually. When you suspect your care running out of port, you may check with the command “netstat -an” to see how many ports are in use. And to prevent this issue, you need to code your application to reuse the port as much as possible.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#blog" class="page__taxonomy-item" rel="tag">blog</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-29T00:00:00+08:00">August 29, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Performance+Test%20%2Fblog%2Fperformance-test%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fperformance-test%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2Fblog%2Fperformance-test%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/new-blog/" class="pagination--pager" title="New blog!
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/new-blog/" rel="permalink">New blog!
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">After many years of coding, I decided to write down some notes for myself. Hopefully, these experiences can also help others.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/wilson-yeung" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Wilsonson. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
