@@ -1,1 +1,1 @@
-Sitemap: https://wilsonson.github.io//sitemap.xml
+Sitemap: https://wilsonson.github.io/sitemap.xml
