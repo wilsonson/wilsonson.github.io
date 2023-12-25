@@ -1,0 +1,191 @@
+<!-- import aframe and then ar.js with image tracking / location based features -->
+<!-- <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script> -->
+<script src="static/vendor/aframe-master.min.js"></script>
+<!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> -->
+<script src="static/vendor/aframe-ar-nft.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<!-- style for the loader -->
+<link href="static/vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="static/vendor/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+
+  #modal1 {
+    z-index: 9999;
+  }
+</style>
+
+<script>
+    AFRAME.registerComponent('markerhandler', {
+        schema: {type: 'string'},
+      init: function () {
+        elementName=this.data;
+        this.el.addEventListener('markerFound', (e) => {
+            toggle(this.el.id);
+        });
+    }
+    });
+    
+    window.modalActive = false;
+
+    function toggle(artworkId){
+        if (!window.modalActive){
+            artworkData = artworkArray[0];
+            switch(artworkId){
+                case "artwork_1": artworkData = artworkArray[1]; break;
+                case "artwork_2": artworkData = artworkArray[2]; break;
+                case "artwork_4": artworkData = artworkArray[4]; break;
+            }
+            let title = document.querySelector("#modal_title");
+            title.innerHTML = artworkData.title;
+            let desc = document.querySelector("#modal_desc");
+            desc.innerHTML = `${artworkData.author}<br/>${artworkData.year}<br/>${artworkData.canvas}<br/>${artworkData.desc}<br/>${artworkData.code}<br/>${artworkData.cr}<br/>`;
+            var modal = new bootstrap.Modal("#modal1");            
+            modal.show();  
+            window.modalActive = true;
+        }              
+    }
+
+    function buttonToggle(artwo){
+        toggle('artwork_1')
+    }
+
+    var artworkArray = [
+        {
+            title: "",
+            author: "",
+            year: "",
+            canvas: "",
+            desc: "",
+            code: "",
+            cr:""
+        },
+        {
+            title: "查理斯．威廉．蘭姆頓肖像（紅衣男孩）",
+            author: "湯瑪斯 · 羅蘭士爵士（1769–1830年）",
+            year: "1825年",
+            canvas: "布面油畫",
+            desc: "英國國家美術館，2021年通過英國國家美術館美國之友，吉利恩．克利弗小姐遺產，藝術基金（通過沃夫森基金會撥款），阿勒薩尼收藏基金會，曼尼、布麗吉塔．戴維森慈善基金會，以及私人贊助購入",
+            code: "NG 6692",
+            cr:"© 英國國家美術館"
+        },
+        {
+            title: "聖芝諾比烏斯的三個奇跡",
+            author: "桑德羅．波提切利（約1445–1510年）",
+            year: "約1500年",
+            canvas: "木板蛋彩畫，64.8 x 139.7厘米",
+            desc: "英國國家美術館，1924年蒙德遺贈",
+            code: "NG 3919",
+            cr:"© 英國國家美術館"
+        },
+        {
+            title: "",
+            author: "",
+            year: "",
+            canvas: "",
+            desc: "",
+            code: "",
+            cr:""
+        },
+        {
+            title: "六十三歲的自畫像",
+            author: "林布蘭．凡．萊因（1606–1669年）",
+            year: "1669年",
+            canvas: "布面油畫，86 x 70.5厘米",
+            desc: "英國國家美術館，1851年購入",
+            code: "NG 221",
+            cr:"© 英國國家美術館"
+        },
+    ];
+
+    $(document).ready( function(){
+        $(document).on('hidden.bs.modal', function(){
+            window.modalActive = false;
+        });
+    });
+
+  </script>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>  
+  <button onclick="buttonToggle()">Toggle</button>
+  <div id="modal1" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal_title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modal_desc"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>          
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div>
+    <!-- a-frame scene -->
+    <a-scene
+      vr-mode-ui="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      embedded
+      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+    >
+      <a-nft
+        type="nft"
+        url="static/marker/artwork1"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5"
+        markerhandler="artwork1"
+        id="artwork_1"
+      >
+      </a-nft>
+      <a-nft
+        type="nft"
+        url="static/marker/artwork2"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5"
+        markerhandler="artwork2"      
+        id="artwork_2"
+      >
+      <a-nft
+        type="nft"
+        url="static/marker/artwork4"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5"
+        markerhandler="artwork4"      
+        id="artwork_4"
+        >
+      </a-nft>          
+      <a-entity id="camera" camera></a-entity>
+    </a-scene>
+  </div>   
+</body>
