@@ -3,67 +3,107 @@
 <script src="static/vendor/aframe-master.min.js"></script>
 <!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> -->
 <script src="static/vendor/aframe-ar-nft.js"></script>
-<script src="static/vendor/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="static/vendor/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
 <!-- style for the loader -->
-<link href="static/vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="static/vendor/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<link href="static/vendor/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="static/vendor/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 <style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
+    .arjs-loader div {
+        text-align: center;
+        font-size: 1.25em;
+        color: white;
+    }
 
-  #modal1 {
-    z-index: 9999;
-  }
+    #modal1 {
+        z-index: 9999;
+    }
+
+    #modal1 audio {
+        width: 100%;
+    }
 </style>
 
 <script>
     AFRAME.registerComponent('markerhandler', {
-        schema: {type: 'string'},
-      init: function () {
-        elementName=this.data;
-        this.el.addEventListener('markerFound', (e) => {
-            toggle(this.el.id);
-        });
-    }
+        schema: { type: 'string' },
+        init: function () {
+            elementName = this.data;
+            this.el.addEventListener('markerFound', (e) => {
+                toggle(this.el.id);
+            });
+        }
     });
-    
+
     window.modalActive = false;
 
-    function toggle(artworkId){
-        if (!window.modalActive){
+    function toggle(artworkId) {
+        if (!window.modalActive) {
             artworkData = artworkArray[0];
-            switch(artworkId){
+            switch (artworkId) {
                 case "artwork_1": artworkData = artworkArray[1]; break;
                 case "artwork_2": artworkData = artworkArray[2]; break;
+                case "artwork_3": artworkData = artworkArray[3]; break;
                 case "artwork_4": artworkData = artworkArray[4]; break;
+                case "artwork_5": artworkData = artworkArray[5]; break;
+                case "artwork_6": artworkData = artworkArray[6]; break;
+                case "artwork_7": artworkData = artworkArray[7]; break;
+                case "artwork_8": artworkData = artworkArray[8]; break;
+                case "artwork_9": artworkData = artworkArray[9]; break;
+                case "artwork_10": artworkData = artworkArray[10]; break;
+                case "artwork_11": artworkData = artworkArray[11]; break;
+                case "artwork_12": artworkData = artworkArray[12]; break;
+                case "artwork_13": artworkData = artworkArray[13]; break;
+                case "artwork_14": artworkData = artworkArray[14]; break;
+                case "artwork_15": artworkData = artworkArray[15]; break;
+                case "artwork_16": artworkData = artworkArray[16]; break;
+                case "artwork_17": artworkData = artworkArray[17]; break;
+                case "artwork_18": artworkData = artworkArray[18]; break;
+                case "artwork_19": artworkData = artworkArray[19]; break;
+                case "artwork_20": artworkData = artworkArray[20]; break;
+                case "artwork_21": artworkData = artworkArray[21]; break;                
             }
             let title = document.querySelector("#modal_title");
             title.innerHTML = artworkData.title;
             let desc = document.querySelector("#modal_desc");
             desc.innerHTML = `${artworkData.author}<br/>${artworkData.year}<br/>${artworkData.canvas}<br/>${artworkData.desc}<br/>${artworkData.code}<br/>${artworkData.cr}<br/>`;
-            var modal = new bootstrap.Modal("#modal1");            
-            modal.show();  
+            let audio_layer = document.querySelector("#audio_layer");
+            audio_layer.innerHTML = "";
+
+            let audioEl = document.createElement("audio");
+            audioEl.setAttribute("controls", "");
+            audioEl.setAttribute("autoplay", "");
+            audioEl.setAttribute("id", "audio_el");
+            let source = document.createElement("source");
+            source.setAttribute("src", `static/audio/${artworkData.audio}`);
+            source.setAttribute("type", "audio/mpeg")
+
+            audioEl.appendChild(source);
+            audio_layer.appendChild(audioEl);
+
+            var modal = new bootstrap.Modal("#modal1");
+            modal.show();
             window.modalActive = true;
-        }              
+        }
     }
 
-    function buttonToggle(artwo){
+    function buttonToggle(artwo) {
         toggle('artwork_1')
     }
 
@@ -75,7 +115,8 @@
             canvas: "",
             desc: "",
             code: "",
-            cr:""
+            cr: "",
+            audio: ""
         },
         {
             title: "查理斯．威廉．蘭姆頓肖像（紅衣男孩）",
@@ -84,7 +125,28 @@
             canvas: "布面油畫",
             desc: "英國國家美術館，2021年通過英國國家美術館美國之友，吉利恩．克利弗小姐遺產，藝術基金（通過沃夫森基金會撥款），阿勒薩尼收藏基金會，曼尼、布麗吉塔．戴維森慈善基金會，以及私人贊助購入",
             code: "NG 6692",
-            cr:"© 英國國家美術館"
+            cr: "© 英國國家美術館",
+            audio: "artwork_1.mp3"
+        },
+        {
+            title: "書房中的聖哲羅姆",
+            author: "安東尼羅．達．梅西納（活躍於1456年，卒於1479年）",
+            year: "約1475年",
+            canvas: "石灰板油畫，45.7 x 36.2厘米",
+            desc: "英國國家美術館，1894年購入",
+            code: "NG 1418",
+            cr: "© 英國國家美術館",
+            audio: "artwork_2.mp3"
+        },
+        {
+            title: "聖母子",
+            author: "喬瓦尼．貝利尼（約1435–1516年）",
+            year: "可能作於1480–1490年",
+            canvas: "木板油畫，或含蛋彩，90.8 x 64.8厘米",
+            desc: "英國國家美術館，1855年購入",
+            code: "NG 280",
+            cr: "© 英國國家美術館",
+            audio: "artwork_3.mp3"
         },
         {
             title: "聖芝諾比烏斯的三個奇跡",
@@ -93,16 +155,88 @@
             canvas: "木板蛋彩畫，64.8 x 139.7厘米",
             desc: "英國國家美術館，1924年蒙德遺贈",
             code: "NG 3919",
-            cr:"© 英國國家美術館"
+            cr: "© 英國國家美術館",
+            audio: "artwork_4.mp3"
         },
         {
-            title: "",
-            author: "",
-            year: "",
-            canvas: "",
-            desc: "",
-            code: "",
-            cr:""
+            title: "祈禱的聖母",
+            author: "桑索菲萊托（1609–1685年）",
+            year: "1640–1650年",
+            canvas: "布面油畫，73.0 x 57.7厘米",
+            desc: "英國國家美術館，1846年理查德．西蒙斯遺贈",
+            code: "NG 200",
+            cr: "© 英國國家美術館",
+            audio: "artwork_5.mp3"
+        },
+        {
+            title: "聖母子與施洗者約翰（加瓦聖母）",
+            author: "拉斐爾（1483–1520年）",
+            year: "約1510–1511年",
+            canvas: "木板油畫，38.9 x 32.9厘米",
+            desc: "英國國家美術館，1865年購入",
+            code: "NG 744",
+            cr: "© 英國國家美術館",
+            audio: "artwork_6.mp3"
+        },
+        {
+            title: "寶座上的聖母子和四位天使",
+            author: "昆廷．馬西斯（1465或1466–1530年）",
+            year: "約1506–1509年",
+            canvas: "橡木版油畫，62.3 x 43.5厘米",
+            desc: "英國國家美術館，1958年C. W. 戴森．佩林斯遺贈",
+            code: "NG 6282",
+            cr: "© 英國國家美術館",
+            audio: "artwork_7.mp3"
+        },
+        {
+            title: "酒神的養育",
+            author: "尼古拉．普桑（1594–1665年）",
+            year: "約1628年",
+            canvas: "布面油畫，80.9 x 97.7厘米",
+            desc: "英國國家美術館，1831年G. J. 喬蒙德利遺贈，1836年納入館藏",
+            code: "NG 39",
+            cr: "© 英國國家美術館",
+            audio: "artwork_8.mp3"
+        },
+        {
+            title: "被蜥蜴咬傷的男孩",
+            author: "卡拉瓦喬（1571–1610年）",
+            year: "約1594–1595年",
+            canvas: "布面油畫，66.0 x 49.5厘米",
+            desc: "英國國家美術館，1986年在小約翰．保羅．蓋蒂捐贈基金資助下購入",
+            code: "NG 6504",
+            cr: "© 英國國家美術館",
+            audio: "artwork_9.mp3"
+        },
+        {
+            title: "庭院裏的音樂會",
+            author: "彼得．德．霍赫（1629年–1684年後）",
+            year: "1677年",
+            canvas: "布面油畫，83.5 x 68.5厘米",
+            desc: "英國國家美術館，1916年購入",
+            code: "NG 3047",
+            cr: "© 英國國家美術館",
+            audio: "artwork_10.mp3"
+        },
+        {
+            title: "女孩肖像",
+            author: "多梅尼科．吉蘭達約工作室（1449–1494年",
+            year: "可能作於約1490年",
+            canvas: "木板蛋彩畫，44.1 x 29.2厘米",
+            desc: "英國國家美術館，1887年購入",
+            code: "NG 1230",
+            cr: "© 英國國家美術館",
+            audio: "artwork_11.mp3"
+        },
+        {
+            title: "年輕公主（丹麥的桃樂絲雅？）",
+            author: "揚．戈塞特（活躍於1508年，卒於1532年）",
+            year: "約1530–1532年",
+            canvas: "橡木版油畫，38.2 x 29.1厘米",
+            desc: "英國國家美術館，1908年購入",
+            code: "NG 2211",
+            cr: "© 英國國家美術館",
+            audio: "artwork_12.mp3"
         },
         {
             title: "六十三歲的自畫像",
@@ -111,81 +245,134 @@
             canvas: "布面油畫，86 x 70.5厘米",
             desc: "英國國家美術館，1851年購入",
             code: "NG 221",
-            cr:"© 英國國家美術館"
+            cr: "© 英國國家美術館",
+            audio: "artwork_13.mp3"
+        },
+        {
+            title: "文森佐．莫羅西尼的肖像",
+            author: "雅各布．丁托列托（約1518–1594年）",
+            year: "約1575–1580年",
+            canvas: "布面油畫，85.3 x 52.2厘米",
+            desc: "英國國家美術館，1924年藝術基金為紀念成立21周年暨國家美術館百年誕辰贈送",
+            code: "NG 4004",
+            cr: "© 英國國家美術館",
+            audio: "artwork_14.mp3"
+        },
+        {
+            title: "狂風中的荷蘭船和其他小船",
+            author: "小威廉．凡 ．德 ．維爾德（1633–1707年）",
+            year: "1658 年",
+            canvas: "布面油畫，55.0 x 70.0厘米",
+            desc: "英國國家美術館，1910年素廷遺贈",
+            code: "NG 2573",
+            cr: "© 英國國家美術館",
+            audio: "artwork_15.mp3"
+        },
+        {
+            title: "赫洛與勒安得耳的離別（來自希臘詩人穆塞俄斯）",
+            author: "約瑟・馬洛德・威廉・泰納（1775–1851年）",
+            year: "1837年前",
+            canvas: "布面油畫，146 x 236厘米",
+            desc: "英國國家美術館，1856年泰納遺贈",
+            code: "NG 521",
+            cr: "© 英國國家美術館",
+            audio: "artwork_16.mp3"
+        },
+        {
+            title: "威尼斯：卡納雷吉歐區入口",
+            author: "康納雷佗（1697–1768年）",
+            year: "可能作於1734–1742年",
+            canvas: "布面油畫，48 x 80.2厘米",
+            desc: "英國國家美術館，1879年約翰・亨德森遺贈",
+            code: "NG 1058",
+            cr: "© 英國國家美術館",
+            audio: "artwork_17.mp3"
+        },
+        {
+            title: "聖烏蘇拉登船的海港",
+            author: "克勞德（1604或1605–1682年）",
+            year: "1641年",
+            canvas: "布面油畫，112.9 x 149.0厘米",
+            desc: "英國國家美術館，1824年購入",
+            code: "NG 30",
+            cr: "© 英國國家美術館",
+            audio: "artwork_18.mp3"
+        },
+        {
+            title: "鳶尾花",
+            author: "克勞德．莫奈（1840–1926年）",
+            year: "約1914–1917年",
+            canvas: "布面油畫，200.7 x 149.9厘米",
+            desc: "英國國家美術館，1967年購入",
+            code: "NG 6383",
+            cr: "© 英國國家美術館",
+            audio: "artwork_19.mp3"
+        },
+        {
+            title: "窗前果盤和啤酒杯",
+            author: "保羅．高更（1848–1903年）",
+            year: "可能作於1890年",
+            canvas: "布面油畫，50.8 x 61.6厘米",
+            desc: "英國國家美術館，2006年西門．森寶利遺贈",
+            code: "NG 6609",
+            cr: "© 英國國家美術館",
+            audio: "artwork_20.mp3"
+        },
+        {
+            title: "長草地與蝴蝶",
+            author: "文森．梵高（1853–1890年）",
+            year: "1890年",
+            canvas: "布面油畫，64.5 x 80.7厘米",
+            desc: "英國國家美術館，1926年通過科陶德藝術基金贊助購入",
+            code: "NG 4169",
+            cr: "© 英國國家美術館",
+            audio: "artwork_21.mp3"
         },
     ];
 
-    $(document).ready( function(){
-        $(document).on('hidden.bs.modal', function(){
+    $(document).ready(function () {
+        $(document).on('hidden.bs.modal', function () {
             window.modalActive = false;
+            let audio_el = document.getElementById("audio_el");
+            audio_el.pause();
+            audio_el.rmeove();
+            let audio_layer = document.querySelector("#audio_layer");
+            audio_layer.innerHTML = "";
         });
     });
 
-  </script>
+</script>
 
 <body style="margin : 0px; overflow: hidden;">
-  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>  
-  <button onclick="buttonToggle()">Toggle</button>
-  <div id="modal1" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal_title"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p id="modal_desc"></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>          
-        </div>
-      </div>
+    <div class="arjs-loader">
+        <div>Loading, please wait...</div>
     </div>
-  </div>  
-  <div>
-    <!-- a-frame scene -->
-    <a-scene
-      vr-mode-ui="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      embedded
-      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-    >
-      <a-nft
-        type="nft"
-        url="https://wilsonson.github.io/web-ar-poc/static/marker/artwork1"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance=".01"
-        smoothThreshold="5"
-        markerhandler="artwork1"
-        id="artwork_1"
-      >
-      </a-nft>
-      <a-nft
-        type="nft"
-        url="https://wilsonson.github.io/web-ar-poc/static/marker/artwork2"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance=".01"
-        smoothThreshold="5"
-        markerhandler="artwork2"      
-        id="artwork_2"
-      >
-      <a-nft
-        type="nft"
-        url="https://wilsonson.github.io/web-ar-poc/static/marker/artwork4"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance=".01"
-        smoothThreshold="5"
-        markerhandler="artwork4"      
-        id="artwork_4"
-        >
-      </a-nft>          
-      <a-entity id="camera" camera></a-entity>
-    </a-scene>
-  </div>   
+    <!-- <button onclick="buttonToggle()" style="z-index: 9999;">Toggle</button> -->
+    <div id="modal1" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modal_desc"></p>
+                    <div id="audio_layer">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+            <a-nft type="nft" url="https://wilsonson.github.io/web-ar-poc-full/static/marker/artwork1" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5" markerhandler="artwork1" id="artwork_1"></a-nft>
+            <a-nft type="nft" url="https://wilsonson.github.io/web-ar-poc-full/static/marker/artwork4" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5" markerhandler="artwork4" id="artwork_4"></a-nft>
+            <a-nft type="nft" url="https://wilsonson.github.io/web-ar-poc-full/static/marker/artwork13" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5" markerhandler="artwork13" id="artwork_13"></a-nft>            
+            <a-entity id="camera" camera></a-entity>
+        </a-scene>
+    </div>
 </body>
